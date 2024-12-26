@@ -29,5 +29,6 @@
             </div>
             <button type="submit" class="btn btn-primary w-100 mb-3 cursor-pointer">Submit</button>
         </form>
+
     </div>
 </x-layout>
