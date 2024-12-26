@@ -25,5 +25,7 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/dashboard', [PostController::class, 'index'])->middleware('auth')->name('dashboard');
 
 //post
+Route::get('/posts/create', [PostController::class, 'create']);
+Route::post('/posts', [PostController::class, 'store'])->name('post.create');
 Route::get('/posts/{post}', [PostController::class, 'show']);
 Route::post('/posts/{post}/delete', [PostController::class, 'destroy'])->name('post.delete');
