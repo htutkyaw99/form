@@ -17,14 +17,14 @@
             <h3 class="text-center font-weight-bold mb-5">Register</h3>
             <div class="mb-3">
                 <label for="username" class="form-label">User Name</label>
-                <input type="text" class="form-control" id="username" name="username">
+                <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}">
                 @error('username')
                     <span class="text-sm text-danger">{{ $message }}</span>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email">
+                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">
                 @error('email')
                     <span class="text-sm text-danger">{{ $message }}</span>
                 @enderror
@@ -37,16 +37,15 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="password_confirmation" class="form-label">Password</label>
+                <label for="password_confirmation" class="form-label">Confirm Password</label>
                 <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
             </div>
-            <button type="submit" class="btn btn-primary w-100 mb-3 cursor-pointer">Login</button>
+            <button type="submit" class="btn btn-primary w-100 mb-3 cursor-pointer">Create User</button>
             <p class="text-sm text-primary text-center">
                 <a href="/login" class="link-underline link-underline-opacity-0">Already have an acoount?</a>
             </p>
         </form>
     </div>
-
 </body>
 
 </html>

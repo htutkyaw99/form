@@ -13,7 +13,7 @@ Route::get('/', function () {
     return redirect('dashboard');
 });
 
-//auth
+//auth routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'create'])->name('login');
     Route::post('/login', [LoginController::class, 'store']);
@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/register', [RegisterController::class, 'create']);
 Route::post('/register', [RegisterController::class, 'store']);
 
-//post
+//posts routes
 Route::get('/posts/create', [PostController::class, 'create']);
 Route::post('/posts', [PostController::class, 'store'])->name('post.create');
 Route::get('/posts/{post}', [PostController::class, 'show']);
