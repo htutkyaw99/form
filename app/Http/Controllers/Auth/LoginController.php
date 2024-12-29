@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
 
 class LoginController extends Controller
 {
@@ -16,9 +17,16 @@ class LoginController extends Controller
 
     public function store(LoginRequest $request)
     {
+
+        if (RateLimiter::tooManyAttempts('login' . $request->ip(), $perMinute = 5)) {
+            return 'Too many attempts!';
+        }
+
         if (Auth::attempt($request->validated())) {
 
             $request->session()->regenerate();
+
+            RateLimiter::clear('login' . $request->ip());
 
             return redirect('dashboard');
             // dd($request->user()->createToken()->accessToken());
