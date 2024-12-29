@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 
@@ -11,8 +13,8 @@ class LoginController extends Controller
 {
     private $users = [
         [
-            'email' => 'test1@example.com',
-            'password' => 'password123',
+            'email' => 'htutkyaw22dec99@gmail.com',
+            'password' => 'password',
             'name' => 'Test User 1',
         ],
         [
@@ -39,10 +41,10 @@ class LoginController extends Controller
         foreach ($this->users as $user) {
             if ($user['email'] === $request->email && $user['password'] === $request->password) {
                 RateLimiter::clear($key);
-                return response()->json([
-                    'message' => 'Login successful!',
-                    'user' => $user
-                ]);
+
+                $authUser = User::where('email', $user['email'])->first();
+
+                return new UserResource($authUser);
             }
         }
 
