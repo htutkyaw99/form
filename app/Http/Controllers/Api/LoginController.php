@@ -11,18 +11,6 @@ use Illuminate\Support\Facades\RateLimiter;
 
 class LoginController extends Controller
 {
-    private $users = [
-        [
-            'email' => 'htutkyaw22dec99@gmail.com',
-            'password' => 'password',
-            'name' => 'Test User 1',
-        ],
-        [
-            'email' => 'test2@example.com',
-            'password' => 'password456',
-            'name' => 'Test User 2',
-        ],
-    ];
 
     public function login(LoginRequest $request)
     {
@@ -38,14 +26,11 @@ class LoginController extends Controller
             ], 429);
         }
 
-        foreach ($this->users as $user) {
-            if ($user['email'] === $request->email && $user['password'] === $request->password) {
-                RateLimiter::clear($key);
+        $authUser = User::where('email', $user['email'])->first();
 
-                $authUser = User::where('email', $user['email'])->first();
-
-                return new UserResource($authUser);
-            }
+        if ($authUser) {
+            RateLimiter::clear($key);
+            return new UserResource($authUser);
         }
 
         RateLimiter::hit($key, $decayMinutes * 60);
