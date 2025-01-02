@@ -54,10 +54,17 @@ class User extends Authenticatable
         return $this->belongsTo(Post::class);
     }
 
-    protected function email()
+    protected function email(): Attribute
     {
         return Attribute::make(
-            get: fn(string $value) => Str::upper($value)
+            get: fn(string $value) => ucfirst($value),
+        );
+    }
+
+    protected function username(): Attribute
+    {
+        return Attribute::make(
+            set: fn(string $value) => strtolower($value),
         );
     }
 }
