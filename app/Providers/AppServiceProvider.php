@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         //route rate limiting
-        RateLimiter::for('list', function (Request $request) {
+        RateLimiter::for('profile', function (Request $request) {
             return Limit::perMinute(5)->by($request->user()?->id ?: $request->ip());
         });
 
