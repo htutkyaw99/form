@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
             return $user->id === $post->user_id;
         });
 
+        //route rate limiting
         RateLimiter::for('list', function (Request $request) {
             return Limit::perMinute(5)->by($request->user()?->id ?: $request->ip());
         });
