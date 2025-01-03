@@ -30,15 +30,21 @@ class AppServiceProvider extends ServiceProvider
         });
 
         //route rate limiting
-        RateLimiter::for('profile', function (Request $request) {
-            return Limit::perMinute(5)->by($request->user()?->id ?: $request->ip());
-        });
+        // RateLimiter::for('login', function (Request $request) {
+        //     return Limit::perMinute(2)->response(function (Request $request, array $headers) {
+        //         return redirect()->back()->withErrors(['login' => 'Too many attempts...']);
+        //     });
+        // });
+
 
         // Custom Response
-        // RateLimiter::for('list', function (Request $request) {
-        //     return Limit::perMinute(5)->response(function (Request $request, array $headers) {
-        //         return response('You exceed the request limit', 429, $headers);
-        //     })->by($request->user()?->id ?: $request->ip());
-        // });
+        RateLimiter::for('profilec', function (Request $request) {
+            return Limit::perMinute(5)->response(function (Request $request, array $headers) {
+                return response()->json([
+                    'statusCode' => 429,
+                    'message' => 'You exceed the request limit'
+                ], 429);
+            })->by($request->user()?->id ?: $request->ip());
+        });
     }
 }

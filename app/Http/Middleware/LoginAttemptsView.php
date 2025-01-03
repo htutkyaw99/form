@@ -2,15 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Requests\LoginRequest;
-use App\Http\Resources\UserResource;
-use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Symfony\Component\HttpFoundation\Response;
 
-class LoginAttempts
+class LoginAttemptsView
 {
     /**
      * Handle an incoming request.
@@ -24,10 +21,9 @@ class LoginAttempts
         $decayMinutes = 1;
 
         if (RateLimiter::tooManyAttempts($key, $maxAttempts)) {
-            return response()->json([
-                "statusCode" => 429,
-                'message' => 'Too many login attempts. Please try again later.',
-            ], 429);
+            return redirect()->back()->withErrors([
+                'login' => 'Too many attempts'
+            ]);
         }
 
         RateLimiter::hit($key, $decayMinutes * 60);

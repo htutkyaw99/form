@@ -13,7 +13,7 @@ class RegisterController extends Controller
         $user = $request->validated();
 
         return response()->json([
-            'status' => 201,
+            'statusCode' => 201,
             'message' => 'User Registered',
             'data' => $user
         ], 201);

@@ -15,7 +15,7 @@ class UserController extends Controller
         $authUser = User::where('email', 'aungaung@gmail.com')->first();
 
         return response()->json([
-            'status' => 200,
+            'statusCode' => 200,
             'message' => 'User Profile',
             'data' => new UserResource($authUser)
         ], 200);

@@ -14,6 +14,9 @@
         <form action="/login" method="POST" class="bg-white shadow w-25 h-auto p-5 rounded">
             @csrf
             <h3 class="text-center font-weight-bold mb-5">Login</h3>
+            @error('login')
+                <span class="text-sm text-danger">{{ $message }}</span>
+            @enderror
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">

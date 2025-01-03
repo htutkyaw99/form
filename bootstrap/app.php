@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\LoginAttempts;
+use App\Http\Middleware\LoginAttemptsView;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -14,7 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'LogingAtemmpts' => LoginAttempts::class
+            'LogingAtempts' => LoginAttempts::class,
+            'LogingAtemptsView' => LoginAttemptsView::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
