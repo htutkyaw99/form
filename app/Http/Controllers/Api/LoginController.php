@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -30,6 +30,16 @@ class LoginController extends Controller
             'message' => 'User Logged In',
             'data' => new UserResource($user),
             'token' => $token
+        ], 200);
+    }
+
+    public function destroy(Request $request)
+    {
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            'statusCode' => 200,
+            'message' => 'User Logged Out',
         ], 200);
     }
 }
