@@ -10,14 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function profile()
+    public function profile(Request $request)
     {
-        $authUser = User::where('email', 'aungaung@gmail.com')->first();
+        $user = $request->user();
 
         return response()->json([
-            'statusCode' => 200,
-            'message' => 'User Profile',
-            'data' => new UserResource($authUser)
-        ], 200);
+            'message' => new UserResource($user)
+        ]);
     }
 }
