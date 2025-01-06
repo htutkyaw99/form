@@ -33,7 +33,7 @@ class LoginController extends Controller
         ], 200);
     }
 
-    public function destroy(Request $request)
+    public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
 

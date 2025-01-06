@@ -13,6 +13,7 @@ class UserController extends Controller
         $user = $request->user();
 
         return response()->json([
+            'statusCode' => 200,
             'message' => new UserResource($user)
         ]);
     }

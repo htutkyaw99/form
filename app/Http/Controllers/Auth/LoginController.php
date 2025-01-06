@@ -29,11 +29,10 @@ class LoginController extends Controller
             RateLimiter::clear('login' . $request->ip());
 
             return redirect('dashboard');
-            // dd($request->user()->createToken()->accessToken());
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'login' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
     }
 
